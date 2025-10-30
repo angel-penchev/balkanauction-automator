@@ -18,7 +18,12 @@
     "128": "icon-128.png"
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://balkanauction.com/*"
   ],
   "content_scripts": [
     {
