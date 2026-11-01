@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Browser from 'webextension-polyfill';
 
-type AuctionInformation = { name?: string, price: string };
+type AuctionInformation = { name?: string, price: number };
+
+const formatPrice = (price: number) => `${price.toFixed(2)} €`;
 
 export default function Popup() {
   const [message, setMessage] = useState<React.ReactNode>()
@@ -38,13 +40,20 @@ export default function Popup() {
 
     auctions.reverse();
 
+    const total = auctions.reduce((sum, auction) => sum + auction.price, 0);
+
     setMessage(
-      auctions.map(auction => <p key={auction.id}>- № {auction.id}, {auction.name} - {auction.price}</p>)
+      <>
+        {auctions.map(auction => <p key={auction.id}>- № {auction.id}, {auction.name} - {formatPrice(auction.price)}</p>)}
+        <p>Total: {formatPrice(total)}</p>
+      </>
     )
 
     console.log(
-
-      auctions.map(auction => `- № ${auction.id}, ${auction.name} - ${auction.price}`).join('\n')
+      [
+        ...auctions.map(auction => `- № ${auction.id}, ${auction.name} - ${formatPrice(auction.price)}`),
+        `Total: ${formatPrice(total)}`
+      ].join('\n')
     )
   };
 
@@ -62,7 +71,10 @@ export default function Popup() {
 
     const name = dom.querySelector('h1')?.innerText;
     const priceContainer = dom.querySelector('.price-container');
-    const price = `${priceContainer?.querySelector('span.int-part')?.innerHTML}.${priceContainer?.querySelector('span.frac-part')?.innerHTML} €`;
+    // Strip thousands separators (spaces, &nbsp;, commas) so the parts parse as a number
+    const intPart = priceContainer?.querySelector('span.int-part')?.textContent?.replace(/\D/g, '');
+    const fracPart = priceContainer?.querySelector('span.frac-part')?.textContent?.replace(/\D/g, '');
+    const price = Number(`${intPart}.${fracPart}`);
 
     return { name, price };
   }
