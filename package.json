@@ -15,7 +15,7 @@
     "dev:chrome": "nodemon --config nodemon.chrome.json",
     "dev:firefox": "nodemon --config nodemon.firefox.json",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky",
+    "prepare": "node scripts/install-git-hooks.mjs",
     "lint": "eslint ."
   },
   "type": "module",
@@ -25,8 +25,6 @@
     "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.4",
-    "@commitlint/config-conventional": "^21.2.4",
     "@crxjs/vite-plugin": "^2.0.3",
     "@eslint/js": "^9.39.5",
     "@tailwindcss/vite": "^4.1.11",
@@ -44,7 +42,6 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "fs-extra": "^11.3.0",
     "globals": "^17.14.0",
-    "husky": "^9.1.7",
     "nodemon": "^3.1.10",
     "tailwindcss": "^4.1.8",
     "ts-node": "^10.9.2",

@@ -1,0 +1,31 @@
+# Runs the qoax-githooks commit-msg check over every pushed or proposed commit.
+#
+# This repository is public, so it calls the action directly: a public
+# repository may not call the reusable workflow in the private qoax-reusables.
+name: Check commit conventions
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A pull request may cancel its own earlier run: the next one re-checks the
+# whole range. A push may not, so each push gets a group of its own.
+concurrency:
+  group: >-
+    commit-conventions-${{ github.event.pull_request.number
+      || format('{0}@{1}', github.ref, github.sha) }}
+  cancel-in-progress: true
+
+jobs:
+  commit-conventions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: qoax-community/qoax-githooks@v1

@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Type-checks and lints the working tree before every commit.
+
+set -e
+npm run typecheck
+npm run lint
