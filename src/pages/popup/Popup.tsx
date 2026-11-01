@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Browser from 'webextension-polyfill';
 
 export default function Popup() {
-  const [message, setMessage] = useState<Element[]>()
+  const [message, setMessage] = useState<React.ReactNode>()
 
   async function thang() {
     let auctionTabs = await Browser.tabs.query({
@@ -34,6 +34,8 @@ export default function Popup() {
       }
     }
 
+    auctions.reverse();
+
     setMessage(
       auctions.map(auction => <p>- № {auction.id}, {auction.name} - {auction.price}</p>)
     )
@@ -58,7 +60,7 @@ export default function Popup() {
 
     const name = dom.querySelector('h1')?.innerText;
     const priceContainer = dom.querySelector('.price-container');
-    const price = `${priceContainer?.querySelector('span.int-part')?.innerHTML}.${priceContainer?.querySelector('span.frac-part')?.innerHTML} лв.`;
+    const price = `${priceContainer?.querySelector('span.int-part')?.innerHTML}.${priceContainer?.querySelector('span.frac-part')?.innerHTML} €`;
 
     return { name, price };
   }
