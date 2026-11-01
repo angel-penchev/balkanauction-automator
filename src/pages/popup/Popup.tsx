@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import Browser from 'webextension-polyfill';
 
+type AuctionInformation = { name?: string, price: string };
+
 export default function Popup() {
   const [message, setMessage] = useState<React.ReactNode>()
 
   async function thang() {
-    let auctionTabs = await Browser.tabs.query({
+    const auctionTabs = await Browser.tabs.query({
       url: "https://balkanauction.com/*/auction/*" // TODO: extract in a configurable value
     });
     console.log("Discovered the following auction tabs: ", auctionTabs);
 
-    let auctions = [];
+    const auctions = [];
 
     for (const tab of auctionTabs) {
       if (!tab.id || !tab.url) continue;
@@ -27,7 +29,7 @@ export default function Popup() {
         });
         console.log("Script result:", domAuctionInformation);
 
-        const auctionInfomrmation: any = domAuctionInformation[0].result; // TODO: types
+        const auctionInfomrmation = domAuctionInformation[0].result as AuctionInformation;
         auctions.push({ id: auctionId, ...auctionInfomrmation })
       } catch (error) {
         console.error("Script execution failed:", error);
@@ -37,7 +39,7 @@ export default function Popup() {
     auctions.reverse();
 
     setMessage(
-      auctions.map(auction => <p>- № {auction.id}, {auction.name} - {auction.price}</p>)
+      auctions.map(auction => <p key={auction.id}>- № {auction.id}, {auction.name} - {auction.price}</p>)
     )
 
     console.log(
@@ -68,7 +70,7 @@ export default function Popup() {
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 text-center h-full p-3 bg-gray-800">
       <header className="flex flex-col items-center justify-center text-white">
-        <button onClick={_ => thang()}>
+        <button onClick={() => thang()}>
           do thah thang
         </button>
         {message}
