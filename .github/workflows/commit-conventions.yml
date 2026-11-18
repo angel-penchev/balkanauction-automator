@@ -1,7 +1,11 @@
-# Runs the qoax-githooks commit-msg check over every pushed or proposed commit.
+# Checks the commit messages and the title of a pull request with the
+# commit-msg hook of qoax-githooks. The action also compares the tracked copy
+# at .githooks/commit-msg with the hook of the release that it pins.
 #
-# This repository is public, so it calls the action directly: a public
-# repository may not call the reusable workflow in the private qoax-reusables.
+# The pin is a commit sha, and the comment after it names the release.
+# Dependabot moves both, but it updates the comment only while the release is
+# its last token. When a bump changes the hook, the compare fails and prints
+# the command that writes the new hook into the copy.
 name: Check commit conventions
 
 on:
@@ -23,9 +27,11 @@ concurrency:
 
 jobs:
   commit-conventions:
+    # A ruleset can require this check by its name.
+    name: Conventional Commits
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: qoax-community/qoax-githooks@v1
+      - uses: qoax-community/qoax-githooks@4abc39a4da0306503a66682044f5fe8d7f929922 # v1.1.0
