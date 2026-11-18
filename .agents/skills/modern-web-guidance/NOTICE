@@ -1,0 +1,58 @@
+modern-web-guidance skill
+
+Source
+
+This folder is a copy of skills/modern-web-guidance from Modern Web
+Guidance by Google Chrome:
+https://github.com/GoogleChrome/modern-web-guidance
+Commit: 64a6d708f5a43f2cd3fde5d4d7db3905ba1bdf65 (release v1.0.1)
+
+Qoax Community copies only SKILL.md, not the guides. The CLI reads the
+guides from its npm package.
+
+Licences
+
+The upstream README gives these licences:
+
+- Software code: Apache License 2.0. LICENSE in this folder is a copy of the
+  upstream LICENSE file.
+- Documentation and guide content under guides/: Creative Commons
+  Attribution 4.0 International (CC BY 4.0),
+  https://creativecommons.org/licenses/by/4.0/
+
+SKILL.md is not under guides/. This copy treats it as CC BY 4.0
+documentation too.
+
+The upstream README also says that parts of its documentation come from MDN
+Web Docs by Mozilla Contributors, and from W3C, WHATWG and IETF
+specifications:
+
+- MDN Web Docs: https://developer.mozilla.org/
+- W3C: https://www.w3.org/
+- WHATWG: https://whatwg.org
+- IETF: https://www.ietf.org
+
+Changes
+
+Qoax Community changed SKILL.md:
+
+- The search, retrieve and legacy-scan commands start with
+  DISABLE_TELEMETRY=1. They use
+  "npx --prefer-offline -y modern-web-guidance@1.0.1" in place of
+  "npx -y modern-web-guidance@latest".
+- The offline retry is
+  "DISABLE_TELEMETRY=1 npx --offline -y modern-web-guidance@1.0.1" in place
+  of "npx --offline".
+- The patch removes the advice to prefer pnpx. The allowlist example shows
+  the full command with DISABLE_TELEMETRY=1.
+- A "Version (local change)" item tells the agent to use version 1.0.1, also
+  where a guide shows @latest. The item also tells the agent to keep
+  telemetry off. It forbids the CLI commands that install, update or remove
+  skills, or write .mwgrc.
+- The patch removes Step 4 "Disclose Skill Usage". A "Reply (local change)"
+  item tells the agent to name a guide id only where it explains a choice.
+- A line after the frontmatter says that Qoax Community changed the file.
+
+Qoax Community also added this NOTICE file and the LICENSE file. The patch is
+in upstream/patches/modern-web-guidance/ in
+https://github.com/qoax-community/qoax-agent-skills

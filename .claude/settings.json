@@ -1,0 +1,8 @@
+{
+  "enabledPlugins": {
+    "modern-web-guidance@qoax": false,
+    "chrome-extensions@qoax": false,
+    "modern-web-guidance@claude-plugins-official": false,
+    "modern-web-guidance@googlechrome": false
+  }
+}
