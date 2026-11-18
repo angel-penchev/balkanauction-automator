@@ -9,9 +9,9 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-  # Moves the qoax-githooks pin in .github/workflows. When a release changes
-  # the hook, the check of the bump fails until the copy at
-  # .githooks/commit-msg changes in the same pull request.
+  # Moves the qoax-githooks and qoax-agent-skills pins in .github/workflows.
+  # When a qoax-githooks release changes the hook, the check of the bump fails
+  # until the copy at .githooks/commit-msg changes in the same pull request.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -19,7 +19,8 @@ updates:
     commit-message:
       # Conventional Commits, because the hook checks Dependabot too.
       prefix: "ci"
-    # Only this pin. Some repositories check the pins of their other actions
+    # Only these pins. Some repositories check the pins of their other actions
     # with scripts of their own.
     allow:
       - dependency-name: "qoax-community/qoax-githooks"
+      - dependency-name: "qoax-community/qoax-agent-skills"

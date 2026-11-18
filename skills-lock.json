@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "chrome-extensions": {
+      "source": "qoax-community/qoax-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/chrome-extensions/skills/chrome-extensions/SKILL.md",
+      "computedHash": "428784e8a02432de5af0218a30a43bf19f4eae9ae7e6667ce1e9057ec919fc66"
+    },
+    "modern-web-guidance": {
+      "source": "qoax-community/qoax-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/modern-web-guidance/skills/modern-web-guidance/SKILL.md",
+      "computedHash": "2b30f840e2f423f5fa86cbcf701fb48604b2bba224917a490d6d6b960e5d760e"
+    }
+  }
+}
